@@ -1,4 +1,4 @@
-import com.severo.themoviedatabase.build.Versions
+import com.severo.marvel.build.Versions
 
 plugins {
     id("com.android.application")
@@ -72,10 +72,8 @@ dependencies {
     implementation(Versions.Android.shimmer)
     implementation(Versions.Android.dataStore)
 
-    implementation("io.insert-koin:koin-core:4.1.0")
-    testImplementation("io.insert-koin:koin-test:4.1.0")
-    testImplementation("io.insert-koin:koin-test-junit4:4.1.0")
-    testImplementation("io.insert-koin:koin-test-junit5:4.1.0")
+    implementation("io.insert-koin:koin-android:3.2.2")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
 
     testImplementation(Versions.Android.Room.testing)
     testImplementation(Versions.TestLibs.JUnit.implementation)
