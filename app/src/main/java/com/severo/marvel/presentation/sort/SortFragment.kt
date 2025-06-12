@@ -56,5 +56,6 @@ class SortFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+        const val SORTING_APPLIED_BASK_STACK_KEY = "sortingAppliedBackStackKey"
     }
 }

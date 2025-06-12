@@ -27,6 +27,10 @@
         <argument
             android:name="screenTitle"
             app:argType="string" />
+
+        <argument
+            android:name="detailViewArg"
+            app:argType="com.severo.marvel.presentation.detail.DetailViewArg" />
     </fragment>
     <dialog
         android:id="@+id/sortFragment"

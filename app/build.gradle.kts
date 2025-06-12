@@ -2,10 +2,12 @@ import com.severo.marvel.build.Versions
 
 plugins {
     id("com.android.application")
+    kotlin("kapt")
     id("kotlin-android")
     id("androidx.navigation.safeargs")
     id("kotlin-parcelize")
     id("io.gitlab.arturbosch.detekt")
+
 }
 
 apply {
@@ -24,6 +26,12 @@ android {
         versionName = Versions.Project.versionName
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildFeatures.buildConfig = true
+
+        buildConfigField("String", "PUBLIC_KEY", "\"50f821f2abd2884534d41ad6dbc9b46d\"")
+        buildConfigField("String", "PRIVATE_KEY", "\"072dc1ec8fb0dbdb051a94649d41c8f30f0d8121\"")
+        buildConfigField("String", "BASE_URL", "\"https://gateway.marvel.com/v1/public/\"")
     }
 
     buildTypes {
@@ -47,6 +55,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":core"))
+
     implementation(Versions.Android.coreKtx)
     implementation(Versions.Android.appCompat)
     implementation(Versions.Android.constraintLayout)
@@ -67,6 +77,7 @@ dependencies {
     implementation(Versions.Android.Room.runtime)
     implementation(Versions.Android.Room.paging)
     implementation(Versions.Android.Paging.runtime)
+    kapt("androidx.room:room-compiler:2.7.1")
 
     implementation(Versions.Glide.implementation)
     implementation(Versions.Android.shimmer)
