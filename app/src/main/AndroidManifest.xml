@@ -12,7 +12,7 @@
         android:theme="@style/Theme.TheMovieDataBase">
 
         <activity
-            android:name=".presentation.HomeActivity"
+            android:name="com.severo.marvel.presentation.HomeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
