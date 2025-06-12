@@ -1,10 +1,10 @@
-package com.severo.themoviedatabase.build
+package com.severo.marvel.build
 
 object Versions {
 
     object Project {
-        const val applicationId = "com.severo.themoviedatabase"
-        const val demoApplicationNamespace = "com.severo.themoviedatabase"
+        const val applicationId = "com.severo.marvel"
+        const val demoApplicationNamespace = "com.severo.marvel"
 
         const val versionCode = 1
         const val versionName = "1.0.0"
