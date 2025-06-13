@@ -9,7 +9,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.example.core.domain.model.Character
+import com.severo.core.model.Character
 import com.severo.core.usecase.GetCharactersUseCase
 import com.severo.core.usecase.base.CoroutinesDispatchers
 import kotlinx.coroutines.flow.Flow

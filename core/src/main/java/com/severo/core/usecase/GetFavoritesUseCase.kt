@@ -1,7 +1,7 @@
 package com.severo.core.usecase
 
-import com.example.core.data.repository.FavoritesRepository
-import com.example.core.domain.model.Character
+import com.severo.core.data.repository.FavoritesRepository
+import com.severo.core.model.Character
 import com.severo.core.usecase.base.CoroutinesDispatchers
 import com.severo.core.usecase.base.FlowUseCase
 import kotlinx.coroutines.flow.Flow

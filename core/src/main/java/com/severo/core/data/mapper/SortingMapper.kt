@@ -1,10 +1,9 @@
-package com.example.core.data.mapper
+package com.severo.core.data.mapper
 
-import com.example.core.data.StorageConstants
-import com.example.core.domain.model.SortingType
-import javax.inject.Inject
+import com.severo.core.data.StorageConstants
+import com.severo.core.model.SortingType
 
-class SortingMapper @Inject constructor() {
+class SortingMapper {
 
     fun mapToPair(sorting: String): Pair<String, String> {
         val nameAscending = SortingType.ORDER_BY_NAME.value to SortingType.ORDER_ASCENDING.value

@@ -1,61 +1,122 @@
 package com.severo.marvel.presentation.sort
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.forEach
+import androidx.navigation.fragment.findNavController
+import com.severo.core.model.SortingType
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.chip.Chip
 import com.severo.marvel.R
+import com.severo.marvel.databinding.FragmentSortBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+class SortFragment : BottomSheetDialogFragment() {
 
-/**
- * A simple [Fragment] subclass.
- * Use the [SortFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class SortFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private var _binding: FragmentSortBinding? = null
+    private val binding: FragmentSortBinding get() = _binding!!
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var orderBy = SortingType.ORDER_BY_NAME.value
+    private var order = SortingType.ORDER_ASCENDING.value
+
+    private val viewModel: SortViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sort, container, false)
+    ) = FragmentSortBinding.inflate(
+        inflater,
+        container,
+        false
+    ).apply {
+        _binding = this
+    }.root
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setChipGroupListeners()
+        observeUiState()
+    }
+
+    private fun setChipGroupListeners() {
+        binding.chipGroupOrderBy.setOnCheckedStateChangeListener { group, checkedIds ->
+            checkedIds.firstOrNull()?.let { selectedId ->
+                orderBy = getOrderByValue(selectedId)
+            }
+        }
+
+        binding.chipGroupOrder.setOnCheckedStateChangeListener { group, checkedIds ->
+            checkedIds.firstOrNull()?.let { selectedId ->
+                order = getOrderValue(selectedId)
+            }
+        }
+
+        binding.buttonApplySort.setOnClickListener {
+            viewModel.applySorting(orderBy, order)
+        }
+    }
+
+    private fun observeUiState() {
+        viewModel.state.observe(viewLifecycleOwner) { uiState ->
+            when (uiState) {
+                is SortViewModel.UiState.SortingResult -> {
+                    val orderBy = uiState.storedSorting.first
+                    val order = uiState.storedSorting.second
+
+                    binding.chipGroupOrderBy.forEach {
+                        val chip = it as Chip
+                        if (getOrderByValue(chip.id) == orderBy) {
+                            chip.isChecked = true
+                        }
+                    }
+
+                    binding.chipGroupOrder.forEach {
+                        val chip = it as Chip
+                        if (getOrderValue(chip.id) == order) {
+                            chip.isChecked = true
+                        }
+                    }
+                }
+                is SortViewModel.UiState.ApplyState.Loading ->
+                    binding.flipperApply.displayedChild = FLIPPER_CHILD_PROGRESS
+                is SortViewModel.UiState.ApplyState.Success -> {
+                    findNavController().run {
+                        previousBackStackEntry?.savedStateHandle?.set(
+                            SORTING_APPLIED_BASK_STACK_KEY,
+                            true
+                        )
+                        popBackStack()
+                    }
+                }
+                is SortViewModel.UiState.ApplyState.Error ->
+                    binding.flipperApply.displayedChild = FLIPPER_CHILD_BUTTON
+            }
+        }
+    }
+
+    private fun getOrderByValue(chipId: Int): String = when (chipId) {
+        R.id.chip_name -> SortingType.ORDER_BY_NAME.value
+        R.id.chip_modified -> SortingType.ORDER_BY_MODIFIED.value
+        else -> SortingType.ORDER_BY_NAME.value
+    }
+
+    private fun getOrderValue(chipId: Int): String = when (chipId) {
+        R.id.chip_ascending -> SortingType.ORDER_ASCENDING.value
+        R.id.chip_descending -> SortingType.ORDER_DESCENDING.value
+        else -> SortingType.ORDER_ASCENDING.value
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SortFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            SortFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+        private const val FLIPPER_CHILD_BUTTON = 0
+        private const val FLIPPER_CHILD_PROGRESS = 1
         const val SORTING_APPLIED_BASK_STACK_KEY = "sortingAppliedBackStackKey"
     }
 }
