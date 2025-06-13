@@ -3,9 +3,9 @@ package com.severo.marvel.presentation.characters.adapters
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import com.example.core.domain.model.Character
-import com.severo.marvel.util.OnCharacterItemClick
+import com.severo.core.model.Character
 import com.severo.marvel.framework.imageloader.ImageLoader
+import com.severo.marvel.util.OnCharacterItemClick
 
 class CharactersAdapter(
     private val imageLoader: ImageLoader,
