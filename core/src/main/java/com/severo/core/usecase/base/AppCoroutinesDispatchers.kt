@@ -2,7 +2,6 @@ package com.severo.core.usecase.base
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
-import javax.inject.Inject
 
 
 interface CoroutinesDispatchers {
@@ -12,4 +11,4 @@ interface CoroutinesDispatchers {
     fun unconfined(): CoroutineDispatcher = Dispatchers.Unconfined
 }
 
-class AppCoroutinesDispatchers @Inject constructor() : CoroutinesDispatchers
+class AppCoroutinesDispatchers() : CoroutinesDispatchers

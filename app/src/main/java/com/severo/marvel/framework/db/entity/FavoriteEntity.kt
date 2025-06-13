@@ -3,8 +3,8 @@ package com.severo.marvel.framework.db.entity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.core.data.DbConstants
-import com.example.core.domain.model.Character
+import com.severo.core.data.DbConstants
+import com.severo.core.model.Character
 
 @Entity(tableName = DbConstants.FAVORITES_TABLE_NAME)
 data class FavoriteEntity(

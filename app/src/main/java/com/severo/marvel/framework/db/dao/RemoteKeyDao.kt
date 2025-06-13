@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.core.data.DbConstants
+import com.severo.core.data.DbConstants
 import com.severo.marvel.framework.db.entity.RemoteKey
 
 @Dao

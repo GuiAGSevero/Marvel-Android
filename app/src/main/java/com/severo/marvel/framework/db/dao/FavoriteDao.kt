@@ -1,11 +1,11 @@
 package com.severo.marvel.framework.db.dao
 
 import androidx.room.Dao
-import androidx.room.Query
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
-import androidx.room.Delete
-import com.example.core.data.DbConstants
+import androidx.room.Query
+import com.severo.core.data.DbConstants
 import com.severo.marvel.framework.db.entity.FavoriteEntity
 import kotlinx.coroutines.flow.Flow
 

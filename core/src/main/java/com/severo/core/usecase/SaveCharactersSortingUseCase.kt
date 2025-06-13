@@ -1,6 +1,6 @@
 package com.severo.core.usecase
 
-import com.example.core.data.mapper.SortingMapper
+import com.severo.core.data.mapper.SortingMapper
 import com.severo.core.data.repository.StorageRepository
 import com.severo.core.usecase.base.CoroutinesDispatchers
 import com.severo.core.usecase.base.ResultStatus

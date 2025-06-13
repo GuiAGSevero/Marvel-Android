@@ -1,4 +1,4 @@
-package com.example.core.data
+package com.severo.core.data
 
 object StorageConstants {
     const val MARVEL_DATA_STORE_NAME = "marvel_store"

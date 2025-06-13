@@ -6,6 +6,7 @@ import com.severo.marvel.framework.di.coroutinesModule
 import com.severo.marvel.framework.di.databaseModule
 import com.severo.marvel.framework.di.imageModule
 import com.severo.marvel.framework.di.networkModule
+import com.severo.marvel.framework.di.sortingMapperModule
 import com.severo.marvel.framework.di.storageModule
 import com.severo.marvel.framework.di.useCaseModule
 import com.severo.marvel.framework.di.viewModelModule
@@ -29,6 +30,7 @@ class MarvelApp : Application() {
         coroutinesModule,
         useCaseModule,
         storageModule,
-        charactersRepositoryModule
+        charactersRepositoryModule,
+        sortingMapperModule
     )
 }
