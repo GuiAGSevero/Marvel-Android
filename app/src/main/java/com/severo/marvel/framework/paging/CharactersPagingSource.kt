@@ -2,8 +2,8 @@ package com.severo.marvel.framework.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.example.core.domain.model.Character
 import com.severo.core.data.repository.CharactersRemoteDataSource
+import com.severo.core.model.Character
 
 class CharactersPagingSource(
     private val remoteDataSource: CharactersRemoteDataSource,

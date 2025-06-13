@@ -1,4 +1,4 @@
-package com.example.core.domain.model
+package com.severo.core.model
 
 data class CharacterPaging(
     val offset: Int,

@@ -1,6 +1,6 @@
 package com.severo.core.usecase
 
-import com.example.core.data.repository.FavoritesRepository
+import com.severo.core.data.repository.FavoritesRepository
 import com.severo.core.usecase.base.CoroutinesDispatchers
 import com.severo.core.usecase.base.ResultStatus
 import com.severo.core.usecase.base.UseCase
@@ -18,7 +18,7 @@ interface CheckFavoriteUseCase {
 class CheckFavoriteUseCaseImpl @Inject constructor(
     private val favoritesRepository: FavoritesRepository,
     private val dispatchers: CoroutinesDispatchers
-): UseCase<CheckFavoriteUseCase.Params, Boolean>(), CheckFavoriteUseCase {
+) : UseCase<CheckFavoriteUseCase.Params, Boolean>(), CheckFavoriteUseCase {
 
     override suspend fun doWork(params: CheckFavoriteUseCase.Params): ResultStatus<Boolean> {
         return withContext(dispatchers.io()) {
