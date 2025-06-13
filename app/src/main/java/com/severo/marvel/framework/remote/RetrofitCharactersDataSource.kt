@@ -1,7 +1,7 @@
 package com.severo.marvel.framework.remote
 
 import com.severo.core.data.repository.CharactersRemoteDataSource
-import com.example.core.domain.model.CharacterPaging
+import com.severo.core.model.CharacterPaging
 import com.severo.core.model.Comic
 import com.severo.core.model.Event
 import com.severo.marvel.framework.network.MarvelApi

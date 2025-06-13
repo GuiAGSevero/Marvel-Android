@@ -4,7 +4,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.severo.core.data.repository.CharactersRepository
 import com.severo.core.data.repository.StorageRepository
-import com.example.core.domain.model.Character
+import com.severo.core.model.Character
 import com.severo.core.usecase.GetCharactersUseCase.GetCharactersParams
 import com.severo.core.usecase.base.PagingUseCase
 import kotlinx.coroutines.flow.Flow

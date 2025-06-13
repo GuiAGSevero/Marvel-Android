@@ -1,6 +1,6 @@
 package com.severo.core.data.repository
 
-import com.example.core.domain.model.CharacterPaging
+import com.severo.core.model.CharacterPaging
 import com.severo.core.model.Comic
 import com.severo.core.model.Event
 

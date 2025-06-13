@@ -7,7 +7,7 @@ import androidx.paging.PagingData
 import androidx.paging.map
 import com.severo.core.data.repository.CharactersRemoteDataSource
 import com.severo.core.data.repository.CharactersRepository
-import com.example.core.domain.model.Character
+import com.severo.core.model.Character
 import com.severo.core.model.Comic
 import com.severo.core.model.Event
 import com.severo.marvel.framework.db.AppDatabase
