@@ -1,60 +1,123 @@
 package com.severo.marvel.presentation.detail
 
+import android.R
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.severo.marvel.R
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
+import androidx.transition.TransitionInflater
+import com.severo.marvel.databinding.FragmentDetailBinding
+import com.severo.marvel.framework.imageloader.ImageLoader
+import com.severo.marvel.presentation.extensions.showShortToast
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [DetailFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class DetailFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var _binding: FragmentDetailBinding? = null
+    private val binding: FragmentDetailBinding get() = _binding!!
+
+    private val viewModel: DetailViewModel by viewModel()
+
+    private val imageLoader: ImageLoader by inject()
+
+    private val args by navArgs<DetailFragmentArgs>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_detail, container, false)
+    ) = FragmentDetailBinding.inflate(
+        inflater,
+        container,
+        false
+    ).apply {
+        _binding = this
+    }.root
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val detailViewArg = args.detailViewArg
+        binding.imageCharacter.run {
+            transitionName = detailViewArg.name
+            imageLoader.load(this, detailViewArg.imageUrl)
+        }
+
+        setSharedElementTransitionOnEnter()
+
+        loadCategoriesAndObserveUiState(detailViewArg)
+        setAndObserveFavoriteUiState(detailViewArg)
+    }
+
+    private fun loadCategoriesAndObserveUiState(detailViewArg: DetailViewArg) {
+        viewModel.categories.load(detailViewArg.characterId)
+        viewModel.categories.state.observe(viewLifecycleOwner) { uiState ->
+            binding.flipperDetail.displayedChild = when (uiState) {
+                UiActionStateLiveData.UiState.Loading -> FLIPPER_CHILD_POSITION_LOADING
+                is UiActionStateLiveData.UiState.Success -> {
+                    binding.recyclerParentDetail.run {
+                        setHasFixedSize(true)
+                        adapter = DetailParentAdapter(uiState.detailParentList, imageLoader)
+                    }
+
+                    FLIPPER_CHILD_POSITION_DETAIL
+                }
+                UiActionStateLiveData.UiState.Error -> {
+                    binding.includeErrorView.buttonRetry.setOnClickListener {
+                        viewModel.categories.load(detailViewArg.characterId)
+                    }
+                    FLIPPER_CHILD_POSITION_ERROR
+                }
+                UiActionStateLiveData.UiState.Empty -> FLIPPER_CHILD_POSITION_EMPTY
+            }
+        }
+    }
+
+    private fun setAndObserveFavoriteUiState(detailViewArg: DetailViewArg) {
+        viewModel.favorite.run {
+            checkFavorite(detailViewArg.characterId)
+
+            binding.imageFavoriteIcon.setOnClickListener {
+                update(detailViewArg)
+            }
+
+            state.observe(viewLifecycleOwner) { uiState ->
+                binding.flipperFavorite.displayedChild = when (uiState) {
+                    FavoriteUiActionStateLiveData.UiState.Loading -> FLIPPER_FAVORITE_CHILD_POSITION_LOADING
+                    is FavoriteUiActionStateLiveData.UiState.Icon -> {
+                        binding.imageFavoriteIcon.setImageResource(uiState.icon)
+                        FLIPPER_FAVORITE_CHILD_POSITION_IMAGE
+                    }
+                    is FavoriteUiActionStateLiveData.UiState.Error -> {
+                        showShortToast(uiState.messageResId)
+                        FLIPPER_FAVORITE_CHILD_POSITION_IMAGE
+                    }
+                }
+            }
+        }
+    }
+
+    // Define a animação da transição como "move"
+    private fun setSharedElementTransitionOnEnter() {
+        TransitionInflater.from(requireContext())
+            .inflateTransition(R.transition.move).apply {
+                sharedElementEnterTransition = this
+            }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment DetailFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            DetailFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+        private const val FLIPPER_CHILD_POSITION_LOADING = 0
+        private const val FLIPPER_CHILD_POSITION_DETAIL = 1
+        private const val FLIPPER_CHILD_POSITION_ERROR = 2
+        private const val FLIPPER_CHILD_POSITION_EMPTY = 3
+        private const val FLIPPER_FAVORITE_CHILD_POSITION_IMAGE = 0
+        private const val FLIPPER_FAVORITE_CHILD_POSITION_LOADING = 1
     }
 }
