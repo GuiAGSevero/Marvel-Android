@@ -7,9 +7,9 @@ import androidx.paging.PagingData
 import androidx.paging.map
 import com.severo.core.data.repository.CharactersRemoteDataSource
 import com.severo.core.data.repository.CharactersRepository
-import com.severo.core.model.Character
-import com.severo.core.model.Comic
-import com.severo.core.model.Event
+import com.severo.core.domain.model.Character
+import com.severo.core.domain.model.Comic
+import com.severo.core.domain.model.Event
 import com.severo.marvel.framework.db.AppDatabase
 import com.severo.marvel.framework.paging.CharactersRemoteMediator
 import kotlinx.coroutines.flow.Flow

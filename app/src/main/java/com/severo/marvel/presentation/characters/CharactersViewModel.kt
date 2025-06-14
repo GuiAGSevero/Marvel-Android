@@ -9,7 +9,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.severo.core.model.Character
+import com.severo.core.domain.model.Character
 import com.severo.core.usecase.GetCharactersUseCase
 import com.severo.core.usecase.base.CoroutinesDispatchers
 import kotlinx.coroutines.flow.Flow
@@ -28,17 +28,16 @@ class CharactersViewModel(
             when (action) {
                 is Action.Search, Action.Sort -> {
                     getCharactersUseCase(
-                        GetCharactersUseCase.GetCharactersParams(currentSearchQuery, getPageConfig())
+                        GetCharactersUseCase.GetCharactersParams(
+                            currentSearchQuery,
+                            getPageConfig()
+                        )
                     ).cachedIn(viewModelScope).map {
                         UiState.SearchResult(it)
                     }.asLiveData(coroutinesDispatchers.main())
                 }
             }
         }
-
-    init {
-        searchCharacters()
-    }
 
     fun charactersPagingData(query: String): Flow<PagingData<Character>> {
         return getCharactersUseCase(

@@ -1,7 +1,7 @@
 package com.severo.marvel.framework.network.response
 
 import com.google.gson.annotations.SerializedName
-import com.severo.core.model.Character
+import com.severo.core.domain.model.Character
 
 data class CharacterResponse(
     @SerializedName("id")

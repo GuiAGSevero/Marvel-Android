@@ -2,9 +2,9 @@ package com.severo.core.data.repository
 
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.severo.core.model.Character
-import com.severo.core.model.Comic
-import com.severo.core.model.Event
+import com.severo.core.domain.model.Character
+import com.severo.core.domain.model.Comic
+import com.severo.core.domain.model.Event
 import kotlinx.coroutines.flow.Flow
 
 interface CharactersRepository {

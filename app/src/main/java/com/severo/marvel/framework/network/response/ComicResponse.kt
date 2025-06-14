@@ -1,6 +1,6 @@
 package com.severo.marvel.framework.network.response
 
-import com.severo.core.model.Comic
+import com.severo.core.domain.model.Comic
 import com.google.gson.annotations.SerializedName
 
 data class ComicResponse(

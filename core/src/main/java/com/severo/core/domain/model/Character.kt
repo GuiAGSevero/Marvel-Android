@@ -1,4 +1,4 @@
-package com.severo.core.model
+package com.severo.core.domain.model
 
 data class Character(
     val id: Int,

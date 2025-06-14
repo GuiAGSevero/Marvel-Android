@@ -1,6 +1,6 @@
 package com.severo.marvel.framework.network.response
 
-import com.severo.core.model.Event
+import com.severo.core.domain.model.Event
 import com.google.gson.annotations.SerializedName
 
 data class EventResponse(
