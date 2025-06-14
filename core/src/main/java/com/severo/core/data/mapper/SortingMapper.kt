@@ -1,7 +1,7 @@
 package com.severo.core.data.mapper
 
 import com.severo.core.data.StorageConstants
-import com.severo.core.model.SortingType
+import com.severo.core.domain.model.SortingType
 
 class SortingMapper {
 

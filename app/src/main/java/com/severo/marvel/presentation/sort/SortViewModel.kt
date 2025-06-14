@@ -7,13 +7,13 @@ import androidx.lifecycle.liveData
 import androidx.lifecycle.switchMap
 import com.severo.core.usecase.GetCharactersSortingUseCase
 import com.severo.core.usecase.SaveCharactersSortingUseCase
-import com.severo.core.usecase.base.CoroutinesDispatchers
+import com.severo.core.usecase.base.AppCoroutinesDispatchers
 import com.severo.marvel.presentation.extensions.watchStatus
 
 class SortViewModel(
     private val getCharactersSortingUseCase: GetCharactersSortingUseCase,
     private val saveCharactersSortingUseCase: SaveCharactersSortingUseCase,
-    private val coroutinesDispatchers: CoroutinesDispatchers
+    private val coroutinesDispatchers: AppCoroutinesDispatchers
 ) : ViewModel() {
 
     private val action = MutableLiveData<Action>()
@@ -26,7 +26,6 @@ class SortViewModel(
                             emit(UiState.SortingResult(sortingPair))
                         }
                 }
-
                 is Action.ApplySorting -> {
                     val orderBy = action.orderBy
                     val order = action.order

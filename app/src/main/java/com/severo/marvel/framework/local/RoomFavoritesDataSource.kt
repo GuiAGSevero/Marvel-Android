@@ -1,7 +1,7 @@
 package com.severo.marvel.framework.local
 
 import com.severo.core.data.repository.FavoritesLocalDataSource
-import com.severo.core.model.Character
+import com.severo.core.domain.model.Character
 import com.severo.marvel.framework.db.dao.FavoriteDao
 import com.severo.marvel.framework.db.entity.FavoriteEntity
 import com.severo.marvel.framework.db.entity.toCharactersModel

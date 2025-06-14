@@ -1,15 +1,14 @@
 package com.severo.marvel.presentation.sort
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.forEach
 import androidx.navigation.fragment.findNavController
-import com.severo.core.model.SortingType
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
+import com.severo.core.domain.model.SortingType
 import com.severo.marvel.R
 import com.severo.marvel.databinding.FragmentSortBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -42,16 +41,14 @@ class SortFragment : BottomSheetDialogFragment() {
     }
 
     private fun setChipGroupListeners() {
-        binding.chipGroupOrderBy.setOnCheckedStateChangeListener { group, checkedIds ->
-            checkedIds.firstOrNull()?.let { selectedId ->
-                orderBy = getOrderByValue(selectedId)
-            }
+        binding.chipGroupOrderBy.setOnCheckedChangeListener { group, checkedId ->
+            val chip = group.findViewById<Chip>(checkedId)
+            orderBy = getOrderByValue(chip.id)
         }
 
-        binding.chipGroupOrder.setOnCheckedStateChangeListener { group, checkedIds ->
-            checkedIds.firstOrNull()?.let { selectedId ->
-                order = getOrderValue(selectedId)
-            }
+        binding.chipGroupOrder.setOnCheckedChangeListener { group, checkedId ->
+            val chip = group.findViewById<Chip>(checkedId)
+            order = getOrderValue(chip.id)
         }
 
         binding.buttonApplySort.setOnClickListener {

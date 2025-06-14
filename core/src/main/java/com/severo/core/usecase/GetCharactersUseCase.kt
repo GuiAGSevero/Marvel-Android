@@ -4,13 +4,12 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.severo.core.data.repository.CharactersRepository
 import com.severo.core.data.repository.StorageRepository
-import com.severo.core.model.Character
+import com.severo.core.domain.model.Character
 import com.severo.core.usecase.GetCharactersUseCase.GetCharactersParams
 import com.severo.core.usecase.base.PagingUseCase
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
-import javax.inject.Inject
 
 interface GetCharactersUseCase {
     operator fun invoke(params: GetCharactersParams): Flow<PagingData<Character>>
@@ -18,7 +17,7 @@ interface GetCharactersUseCase {
     data class GetCharactersParams(val query: String, val pagingConfig: PagingConfig)
 }
 
-class GetCharactersUseCaseImpl @Inject constructor(
+class GetCharactersUseCaseImpl(
     private val charactersRepository: CharactersRepository,
     private val storageRepository: StorageRepository
 ) : PagingUseCase<GetCharactersParams, Character>(),

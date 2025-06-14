@@ -4,6 +4,7 @@ import android.app.Application
 import com.severo.marvel.framework.di.charactersRepositoryModule
 import com.severo.marvel.framework.di.coroutinesModule
 import com.severo.marvel.framework.di.databaseModule
+import com.severo.marvel.framework.di.favoritesModule
 import com.severo.marvel.framework.di.imageModule
 import com.severo.marvel.framework.di.networkModule
 import com.severo.marvel.framework.di.sortingMapperModule
@@ -31,6 +32,7 @@ class MarvelApp : Application() {
         useCaseModule,
         storageModule,
         charactersRepositoryModule,
+        favoritesModule,
         sortingMapperModule
     )
 }
