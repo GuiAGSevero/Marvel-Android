@@ -1,4 +1,4 @@
-package com.severo.core.model
+package com.severo.core.domain.model
 
 enum class SortingType(val value: String) {
     ORDER_BY_NAME("name"),
