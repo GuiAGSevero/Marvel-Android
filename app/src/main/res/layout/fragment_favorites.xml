@@ -20,7 +20,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:alpha="0.5"
-        android:drawablePadding="8dp"
+        android:drawablePadding="@dimen/margin_top_small"
+        android:padding="@dimen/margin_top_small"
         android:text="@string/favorites_no_favorites_in_the_list"
         app:drawableTopCompat="@drawable/ic_no_favorites" />
 
