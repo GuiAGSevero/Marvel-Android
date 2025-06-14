@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.severo.core.data.DbConstants
-import com.severo.core.model.Character
+import com.severo.core.domain.model.Character
 
 @Entity(tableName = DbConstants.FAVORITES_TABLE_NAME)
 data class FavoriteEntity(

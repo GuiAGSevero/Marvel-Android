@@ -1,6 +1,6 @@
 package com.severo.core.data.repository
 
-import com.severo.core.model.Character
+import com.severo.core.domain.model.Character
 import kotlinx.coroutines.flow.Flow
 
 interface FavoritesRepository {
