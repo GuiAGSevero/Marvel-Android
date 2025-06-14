@@ -1,60 +1,77 @@
 package com.severo.marvel.presentation.favorites
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.severo.marvel.R
+import androidx.fragment.app.Fragment
+import com.severo.marvel.databinding.FragmentFavoritesBinding
+import com.severo.marvel.framework.imageloader.ImageLoader
+import com.severo.marvel.presentation.common.getGenericAdapterOf
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [FavoritesFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class FavoritesFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+    private var _binding: FragmentFavoritesBinding? = null
+    private val binding: FragmentFavoritesBinding get() = _binding!!
+
+    private val viewModel: FavoritesViewModel by viewModel()
+
+    private val imageLoader: ImageLoader by inject()
+
+    private val favoritesAdapter by lazy {
+        getGenericAdapterOf {
+            FavoritesViewHolder.Companion.create(it, imageLoader)
         }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favorites, container, false)
+    ) = FragmentFavoritesBinding.inflate(
+        inflater,
+        container,
+        false
+    ).apply {
+        _binding = this
+    }.root
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initFavoritesAdapter()
+
+        viewModel.state.observe(viewLifecycleOwner) { uiState ->
+            binding.flipperFavorites.displayedChild = when (uiState) {
+                is FavoritesViewModel.UiState.ShowFavorite -> {
+                    favoritesAdapter.submitList(uiState.favorites)
+                    FLIPPER_CHILD_CHARACTERS
+                }
+
+                FavoritesViewModel.UiState.ShowEmpty -> {
+                    favoritesAdapter.submitList(emptyList())
+                    FLIPPER_CHILD_EMPTY
+                }
+            }
+        }
+
+        viewModel.getAll()
+    }
+
+    private fun initFavoritesAdapter() {
+        binding.recyclerFavorites.run {
+            setHasFixedSize(true)
+            adapter = favoritesAdapter
+        }
+    }
+
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment FavoritesFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            FavoritesFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+        private const val FLIPPER_CHILD_CHARACTERS = 0
+        private const val FLIPPER_CHILD_EMPTY = 1
     }
 }

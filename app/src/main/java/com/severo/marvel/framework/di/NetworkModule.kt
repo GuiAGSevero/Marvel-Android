@@ -12,6 +12,8 @@ import java.util.Calendar
 import java.util.TimeZone
 import java.util.concurrent.TimeUnit
 
+private const val DEFAULT_TIMEOUT_SECONDS = 15L
+
 val networkModule = module {
 
     single {
@@ -32,8 +34,8 @@ val networkModule = module {
         OkHttpClient.Builder()
             .addInterceptor(get<HttpLoggingInterceptor>())
             .addInterceptor(get<AuthorizationInterceptor>())
-            .readTimeout(15L, TimeUnit.SECONDS)
-            .connectTimeout(15L, TimeUnit.SECONDS)
+            .readTimeout(DEFAULT_TIMEOUT_SECONDS, TimeUnit.SECONDS)
+            .connectTimeout(DEFAULT_TIMEOUT_SECONDS, TimeUnit.SECONDS)
             .build()
     }
 

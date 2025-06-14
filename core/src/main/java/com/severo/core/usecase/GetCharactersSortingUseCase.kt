@@ -7,13 +7,12 @@ import com.severo.core.usecase.base.FlowUseCase
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
 
 interface GetCharactersSortingUseCase {
     suspend operator fun invoke(params: Unit = Unit): Flow<Pair<String, String>>
 }
 
-class GetCharactersSortingUseCaseImpl @Inject constructor(
+class GetCharactersSortingUseCaseImpl(
     private val storageRepository: StorageRepository,
     private val sortingMapper: SortingMapper,
     private val dispatchers: CoroutinesDispatchers

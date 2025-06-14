@@ -16,7 +16,7 @@ interface SaveCharactersSortingUseCase {
     data class Params(val sortingPair: Pair<String, String>)
 }
 
-class SaveCharactersSortingUseCaseImpl @Inject constructor(
+class SaveCharactersSortingUseCaseImpl(
     private val storageRepository: StorageRepository,
     private val sortingMapper: SortingMapper,
     private val dispatchers: CoroutinesDispatchers
