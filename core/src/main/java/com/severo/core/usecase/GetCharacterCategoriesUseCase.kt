@@ -18,7 +18,7 @@ interface GetCharacterCategoriesUseCase {
 }
 
 class GetCharacterCategoriesUseCaseImpl(
-    private val repository: CharactersRepository,
+    private val charactersRepository: CharactersRepository,
     private val dispatchers: CoroutinesDispatchers
 ) : GetCharacterCategoriesUseCase,
     UseCase<GetCharacterCategoriesUseCase.GetCategoriesParams, Pair<List<Comic>, List<Event>>>() {
@@ -27,8 +27,8 @@ class GetCharacterCategoriesUseCaseImpl(
         params: GetCharacterCategoriesUseCase.GetCategoriesParams
     ): ResultStatus<Pair<List<Comic>, List<Event>>> {
         return withContext(dispatchers.io()) {
-            val comicsDeferred = async { repository.getComics(params.characterId) }
-            val eventsDeferred = async { repository.getEvents(params.characterId) }
+            val comicsDeferred = async { charactersRepository.getComics(params.characterId) }
+            val eventsDeferred = async { charactersRepository.getEvents(params.characterId) }
 
             val comics = comicsDeferred.await()
             val events = eventsDeferred.await()
