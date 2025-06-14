@@ -1,8 +1,8 @@
 package com.severo.core.data.repository
 
-import com.severo.core.model.CharacterPaging
-import com.severo.core.model.Comic
-import com.severo.core.model.Event
+import com.severo.core.domain.model.CharacterPaging
+import com.severo.core.domain.model.Comic
+import com.severo.core.domain.model.Event
 
 interface CharactersRemoteDataSource {
 

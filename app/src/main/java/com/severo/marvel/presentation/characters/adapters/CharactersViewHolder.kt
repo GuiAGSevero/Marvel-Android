@@ -3,7 +3,7 @@ package com.severo.marvel.presentation.characters.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.severo.core.model.Character
+import com.severo.core.domain.model.Character
 import com.severo.marvel.databinding.ItemCharacterBinding
 import com.severo.marvel.framework.imageloader.ImageLoader
 import com.severo.marvel.util.OnCharacterItemClick

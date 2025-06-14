@@ -29,7 +29,6 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import kotlin.compareTo
 
 class CharactersFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener,
     MenuItem.OnActionExpandListener {
@@ -95,6 +94,7 @@ class CharactersFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListe
                 }
             }
         }
+        viewModel.searchCharacters()
     }
 
     private fun initCharactersAdapter() {
@@ -107,6 +107,10 @@ class CharactersFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListe
                     charactersAdapter::retry
                 )
             )
+            viewTreeObserver.addOnPreDrawListener {
+                startPostponedEnterTransition()
+                true
+            }
         }
     }
 
@@ -124,6 +128,7 @@ class CharactersFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListe
                         setShimmerVisibility(true)
                         FLIPPER_CHILD_LOADING
                     }
+
                     loadState.mediator?.refresh is LoadState.Error
                             && charactersAdapter.itemCount == 0 -> {
                         setShimmerVisibility(false)
@@ -132,11 +137,13 @@ class CharactersFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListe
                         }
                         FLIPPER_CHILD_ERROR
                     }
+
                     loadState.source.refresh is LoadState.NotLoading
                             || loadState.mediator?.refresh is LoadState.NotLoading -> {
                         setShimmerVisibility(false)
                         FLIPPER_CHILD_CHARACTERS
                     }
+
                     else -> {
                         setShimmerVisibility(false)
                         FLIPPER_CHILD_CHARACTERS
@@ -203,7 +210,9 @@ class CharactersFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListe
             R.id.menu_sort -> {
                 findNavController().navigate(R.id.action_charactersFragment_to_sortFragment)
                 true
-            } else -> false
+            }
+
+            else -> false
         }
     }
 
