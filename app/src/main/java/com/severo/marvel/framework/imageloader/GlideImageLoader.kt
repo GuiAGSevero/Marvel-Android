@@ -3,7 +3,7 @@ package com.severo.marvel.framework.imageloader
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 
-class GlideImageLoader() : ImageLoader {
+class GlideImageLoader : ImageLoader {
 
     override fun load(
         imageView: ImageView,
