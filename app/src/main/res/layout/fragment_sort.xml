@@ -1,31 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="16dp">
+    android:padding="@dimen/card_padding">
 
     <TextView
         android:id="@+id/text_order_by_title"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/zero_dp"
         android:layout_height="wrap_content"
         android:text="@string/sort_order_by"
         android:textColor="@color/black"
-        android:textSize="18sp"
+        android:textSize="@dimen/text_size_h3"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/chip_group_order_by"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/zero_dp"
         android:layout_height="wrap_content"
         app:checkedChip="@id/chip_name"
-        app:layout_constraintStart_toStartOf="@id/text_order_by_title"
-        app:layout_constraintTop_toBottomOf="@id/text_order_by_title"
         app:selectionRequired="true"
         app:singleLine="true"
-        app:singleSelection="true">
+        app:singleSelection="true"
+        app:layout_constraintStart_toStartOf="@id/text_order_by_title"
+        app:layout_constraintTop_toBottomOf="@id/text_order_by_title">
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_name"
@@ -38,30 +39,29 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sort_order_by_modified" />
-
     </com.google.android.material.chip.ChipGroup>
 
     <TextView
         android:id="@+id/text_order_title"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/zero_dp"
         android:layout_height="wrap_content"
         android:text="@string/sort_order"
         android:textColor="@color/black"
-        android:textSize="18sp"
+        android:textSize="@dimen/text_size_h3"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@id/chip_group_order_by"
         app:layout_constraintTop_toBottomOf="@id/chip_group_order_by" />
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/chip_group_order"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/zero_dp"
         android:layout_height="wrap_content"
         app:checkedChip="@id/chip_ascending"
-        app:layout_constraintStart_toStartOf="@id/text_order_title"
-        app:layout_constraintTop_toBottomOf="@id/text_order_title"
         app:selectionRequired="true"
         app:singleLine="true"
-        app:singleSelection="true">
+        app:singleSelection="true"
+        app:layout_constraintStart_toStartOf="@id/text_order_title"
+        app:layout_constraintTop_toBottomOf="@id/text_order_title">
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_ascending"
@@ -74,14 +74,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sort_order_descending" />
-
     </com.google.android.material.chip.ChipGroup>
 
     <ViewFlipper
         android:id="@+id/flipper_apply"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/zero_dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/margin_top_medium"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/chip_group_order">
@@ -96,10 +95,9 @@
 
         <ProgressBar
             android:id="@+id/progress_sort"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="@dimen/progress_size"
+            android:layout_height="@dimen/progress_size"
             android:layout_gravity="center" />
-
     </ViewFlipper>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
