@@ -7,7 +7,6 @@ import org.koin.dsl.module
 
 val databaseModule = module {
 
-    // Fornece a instância do banco de dados
     single {
         Room.databaseBuilder(
             androidApplication(),
@@ -17,7 +16,6 @@ val databaseModule = module {
             .build()
     }
 
-    // DAOs
     single { get<AppDatabase>().favoriteDao() }
     single { get<AppDatabase>().characterDao() }
     single { get<AppDatabase>().remoteKeyDao() }
