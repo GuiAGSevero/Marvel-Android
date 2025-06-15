@@ -82,61 +82,61 @@ android {
 dependencies {
     implementation(project(":core"))
 
-    // AndroidX
-    implementation(Versions.Android.coreKtx)
-    implementation(Versions.Android.appCompat)
-    implementation(Versions.Android.constraintLayout)
+    implementation("androidx.core:core-ktx:1.13.1")
+    implementation("androidx.appcompat:appcompat:1.7.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 
-    // Material
-    implementation(Versions.Android.material)
-    implementation(Versions.Android.legacySupport)
+    implementation("com.google.android.material:material:1.12.0")
+    implementation("androidx.legacy:legacy-support-v4:1.0.0")
 
-    // Navigation
-    implementation(Versions.Android.Navigation.fragment)
-    implementation(Versions.Android.Navigation.ui)
+    val navVersion = "2.7.7"
+    implementation("androidx.navigation:navigation-fragment-ktx:$navVersion")
+    implementation("androidx.navigation:navigation-ui-ktx:$navVersion")
 
-    // Lifecycle
-    implementation(Versions.Android.Lifecycle.viewModel)
-    implementation(Versions.Android.Lifecycle.liveData)
-    implementation(Versions.Android.Lifecycle.runtime)
+    val lifecycleVersion = "2.8.3"
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion")
 
-    // Coroutines
-    implementation(Versions.Coroutines.core)
-    implementation(Versions.Coroutines.android)
+    val coroutinesVersion = "1.7.3"
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion")
 
-    // Koin
     implementation("io.insert-koin:koin-android:3.2.2")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
 
-    // Room
-    implementation(Versions.Android.Room.ktx)
-    implementation(Versions.Android.Room.runtime)
-    implementation(Versions.Android.Room.paging)
-    implementation(Versions.Android.Paging.runtime)
-    kapt("androidx.room:room-compiler:2.7.1")
+    val roomVersion = "2.6.1"
+    implementation("androidx.room:room-ktx:$roomVersion")
+    implementation("androidx.room:room-runtime:$roomVersion")
+    implementation("androidx.room:room-paging:$roomVersion")
+    kapt("androidx.room:room-compiler:$roomVersion")
 
-    // Glide
-    implementation(Versions.Glide.implementation)
+    val pagingVersion = "3.3.0"
+    implementation("androidx.paging:paging-runtime-ktx:$pagingVersion")
 
-    // Outros
-    implementation(Versions.Android.shimmer)
-    implementation(Versions.Android.dataStore)
+    val glideVersion = "4.12.0"
+    implementation("com.github.bumptech.glide:glide:$glideVersion")
+    kapt("com.github.bumptech.glide:compiler:$glideVersion")
 
-    // Testes unitários
-    testImplementation(Versions.Android.Room.testing)
-    testImplementation(Versions.TestLibs.JUnit.implementation)
+    implementation("com.facebook.shimmer:shimmer:0.5.0")
+    implementation("androidx.datastore:datastore-preferences:1.1.1")
 
-    // Instrumentation tests
-    androidTestImplementation(Versions.Android.Test.junitExt)
-    androidTestImplementation(Versions.Android.Test.runner)
-    androidTestUtil(Versions.Android.Test.orchestrator)
+    testImplementation(project(":testing"))
+    testImplementation("androidx.room:room-testing:$roomVersion")
 
-    androidTestImplementation(Versions.Android.Espresso.core)
-    androidTestImplementation(Versions.Android.Espresso.contrib)
+    androidTestImplementation("androidx.test.ext:junit:1.2.1")
+    androidTestImplementation("androidx.test:runner:1.6.1")
+    androidTestUtil("androidx.test:orchestrator:1.5.0")
 
-    debugImplementation(Versions.Android.Fragment.testing)
+    val espressoVersion = "3.4.0"
+    androidTestImplementation("androidx.test.espresso:espresso-core:$espressoVersion")
+    androidTestImplementation("androidx.test.espresso:espresso-contrib:$espressoVersion")
 
-    androidTestImplementation(Versions.OkHttp.mockWebServer)
-    androidTestImplementation(Versions.Coroutines.test)
-    androidTestImplementation(Versions.Android.Navigation.testing)
+    val fragmentVersion = "1.5.3"
+    debugImplementation("androidx.fragment:fragment-testing:$fragmentVersion")
+
+    androidTestImplementation("com.squareup.okhttp3:mockwebserver:4.9.3")
+    androidTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion")
+    androidTestImplementation("androidx.navigation:navigation-testing:$navVersion")
+
 }
