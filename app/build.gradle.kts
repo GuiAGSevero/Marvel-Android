@@ -1,5 +1,3 @@
-import com.severo.marvel.build.Versions
-
 plugins {
     id("com.android.application")
     id("kotlin-android")
@@ -14,15 +12,15 @@ apply {
 }
 
 android {
-    namespace = Versions.Project.demoApplicationNamespace
-    compileSdk = Versions.Android.compileSdk
+    namespace = Dependencies.Project.demoApplicationNamespace
+    compileSdk = Dependencies.Android.compileSdk
 
     defaultConfig {
-        applicationId = Versions.Project.applicationId
-        minSdk = Versions.Android.minSdk
-        targetSdk = Versions.Android.targetSdk
-        versionCode = Versions.Project.versionCode
-        versionName = Versions.Project.versionName
+        applicationId = Dependencies.Project.applicationId
+        minSdk = Dependencies.Android.minSdk
+        targetSdk = Dependencies.Android.targetSdk
+        versionCode = Dependencies.Project.versionCode
+        versionName = Dependencies.Project.versionName
 
         testInstrumentationRunner = "com.severo.marvel.CustomTestRunner"
         testInstrumentationRunnerArguments["clearPackageData"] = "true"
@@ -82,61 +80,53 @@ android {
 dependencies {
     implementation(project(":core"))
 
-    implementation("androidx.core:core-ktx:1.13.1")
-    implementation("androidx.appcompat:appcompat:1.7.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation(Dependencies.Android.coreKtx)
+    implementation(Dependencies.Android.appCompat)
+    implementation(Dependencies.Android.constraintLayout)
 
-    implementation("com.google.android.material:material:1.12.0")
-    implementation("androidx.legacy:legacy-support-v4:1.0.0")
+    implementation(Dependencies.Android.material)
+    implementation(Dependencies.Android.legacySupport)
 
-    val navVersion = "2.7.7"
-    implementation("androidx.navigation:navigation-fragment-ktx:$navVersion")
-    implementation("androidx.navigation:navigation-ui-ktx:$navVersion")
+    implementation(Dependencies.Android.Navigation.fragment)
+    implementation(Dependencies.Android.Navigation.ui)
 
-    val lifecycleVersion = "2.8.3"
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion")
+    implementation(Dependencies.Android.Lifecycle.viewModel)
+    implementation(Dependencies.Android.Lifecycle.liveData)
+    implementation(Dependencies.Android.Lifecycle.runtime)
+    implementation(Dependencies.Android.Lifecycle.runtimeLegacy)
 
-    val coroutinesVersion = "1.7.3"
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion")
+    implementation(Dependencies.Coroutines.core)
+    implementation(Dependencies.Coroutines.android)
 
-    implementation("io.insert-koin:koin-android:3.2.2")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
+    implementation(Dependencies.Koin.android)
 
-    val roomVersion = "2.6.1"
-    implementation("androidx.room:room-ktx:$roomVersion")
-    implementation("androidx.room:room-runtime:$roomVersion")
-    implementation("androidx.room:room-paging:$roomVersion")
-    kapt("androidx.room:room-compiler:$roomVersion")
+    implementation(Dependencies.Android.Room.ktx)
+    implementation(Dependencies.Android.Room.runtime)
+    implementation(Dependencies.Android.Room.paging)
+    kapt(Dependencies.Android.Room.compiler)
 
-    val pagingVersion = "3.3.0"
-    implementation("androidx.paging:paging-runtime-ktx:$pagingVersion")
+    implementation(Dependencies.Android.Paging.runtime)
 
-    val glideVersion = "4.12.0"
-    implementation("com.github.bumptech.glide:glide:$glideVersion")
-    kapt("com.github.bumptech.glide:compiler:$glideVersion")
+    implementation(Dependencies.Glide.implementation)
+    kapt(Dependencies.Glide.compiler)
 
-    implementation("com.facebook.shimmer:shimmer:0.5.0")
-    implementation("androidx.datastore:datastore-preferences:1.1.1")
+    implementation(Dependencies.Android.shimmer)
+    implementation(Dependencies.Android.dataStore)
 
     testImplementation(project(":testing"))
-    testImplementation("androidx.room:room-testing:$roomVersion")
+    testImplementation(Dependencies.Android.Room.testing)
 
-    androidTestImplementation("androidx.test.ext:junit:1.2.1")
-    androidTestImplementation("androidx.test:runner:1.6.1")
-    androidTestUtil("androidx.test:orchestrator:1.5.0")
+    androidTestImplementation(Dependencies.Android.Test.junitExt)
+    androidTestImplementation(Dependencies.Android.Test.runner)
+    androidTestUtil(Dependencies.Android.Test.orchestrator)
 
-    val espressoVersion = "3.4.0"
-    androidTestImplementation("androidx.test.espresso:espresso-core:$espressoVersion")
-    androidTestImplementation("androidx.test.espresso:espresso-contrib:$espressoVersion")
+    androidTestImplementation(Dependencies.Android.Espresso.core)
+    androidTestImplementation(Dependencies.Android.Espresso.contrib)
 
-    val fragmentVersion = "1.5.3"
-    debugImplementation("androidx.fragment:fragment-testing:$fragmentVersion")
+    debugImplementation(Dependencies.Android.Fragment.testing)
 
-    androidTestImplementation("com.squareup.okhttp3:mockwebserver:4.9.3")
-    androidTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion")
-    androidTestImplementation("androidx.navigation:navigation-testing:$navVersion")
-
+    androidTestImplementation(Dependencies.OkHttp.mockWebServer)
+    androidTestImplementation(Dependencies.Coroutines.test)
+    androidTestImplementation(Dependencies.Android.Navigation.testing)
 }
+
