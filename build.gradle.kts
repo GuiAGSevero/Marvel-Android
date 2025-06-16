@@ -1,5 +1,3 @@
-import com.severo.marvel.build.Versions
-
 buildscript {
     repositories {
         google()
