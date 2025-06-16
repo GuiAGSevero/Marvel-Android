@@ -79,7 +79,6 @@ class DetailViewModelTest {
     @Test
     fun `should notify uiState with Success from UiState when get character categories returns success`() =
         runTest {
-            // Arrange
             whenever(getCharacterCategoriesUseCase.invoke(any()))
                 .thenReturn(
                     flowOf(
@@ -89,10 +88,8 @@ class DetailViewModelTest {
                     )
                 )
 
-            // Act
             detailViewModel.categories.load(character.id)
 
-            // Assert
             verify(uiStateObserver).onChanged(isA<UiActionStateLiveData.UiState.Success>())
 
             val uiStateSuccess =

@@ -26,23 +26,18 @@ class StorageRepositoryImplTest {
 
     @Test
     fun `should return sorting flow from localDataSource`() = runTest {
-        // Arrange
         whenever(storageLocalDataSource.sorting).thenReturn(flowOf(sortingValue))
 
-        // Act
         val result = repository.sorting.first()
 
-        // Assert
         assertEquals(sortingValue, result)
         verify(storageLocalDataSource).sorting
     }
 
     @Test
     fun `should call saveSorting on localDataSource`() = runTest {
-        // Act
         repository.saveSorting(sortingValue)
 
-        // Assert
         verify(storageLocalDataSource).saveSorting(sortingValue)
     }
 }

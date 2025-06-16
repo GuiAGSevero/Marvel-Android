@@ -27,46 +27,36 @@ class FavoritesRepositoryImplTest {
 
     @Test
     fun `should return list of characters from localDataSource`() = runTest {
-        // Arrange
         val expected = listOf(character)
         whenever(localDataSource.getAll()).thenReturn(flowOf(expected))
 
-        // Act
         val result = repository.getAll().first()
 
-        // Assert
         assertEquals(expected, result)
         verify(localDataSource).getAll()
     }
 
     @Test
     fun `should return true when character is favorite`() = runTest {
-        // Arrange
         whenever(localDataSource.isFavorite(character.id)).thenReturn(true)
 
-        // Act
         val result = repository.isFavorite(character.id)
 
-        // Assert
         assertTrue(result)
         verify(localDataSource).isFavorite(character.id)
     }
 
     @Test
     fun `should call save on localDataSource`() = runTest {
-        // Act
         repository.saveFavorite(character)
 
-        // Assert
         verify(localDataSource).save(character)
     }
 
     @Test
     fun `should call delete on localDataSource`() = runTest {
-        // Act
         repository.deleteFavorite(character)
 
-        // Assert
         verify(localDataSource).delete(character)
     }
 }

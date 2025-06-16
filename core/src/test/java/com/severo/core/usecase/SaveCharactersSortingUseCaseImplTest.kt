@@ -51,15 +51,12 @@ class SaveCharactersSortingUseCaseImplTest {
 
     @Test
     fun `should emit Loading and Success when sorting is saved successfully`() = runTest {
-        // Act
         val result = useCase.invoke(params)
 
         val resultList = result.toList()
 
-        // Assert repository interaction
         verify(storageRepository).saveSorting(StorageConstants.ORDER_BY_NAME_ASCENDING)
 
-        // Assert emitted states
         assertEquals(ResultStatus.Loading, resultList[0])
         assertTrue(resultList[1] is ResultStatus.Success)
         assertEquals(Unit, (resultList[1] as ResultStatus.Success).data)
@@ -67,7 +64,6 @@ class SaveCharactersSortingUseCaseImplTest {
 
     @Test
     fun `should emit Loading and Error when repository throws exception`() = runTest {
-        // Arrange
         whenever(storageRepository.saveSorting(StorageConstants.ORDER_BY_NAME_ASCENDING))
             .thenAnswer { throw RuntimeException("Database error") }
 
@@ -75,10 +71,8 @@ class SaveCharactersSortingUseCaseImplTest {
 
         val resultList = result.toList()
 
-        // Assert repository interaction
         verify(storageRepository).saveSorting(StorageConstants.ORDER_BY_NAME_ASCENDING)
 
-        // Assert emitted states
         assertEquals(ResultStatus.Loading, resultList[0])
         assertTrue(resultList[1] is ResultStatus.Error)
 

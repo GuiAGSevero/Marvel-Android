@@ -46,29 +46,23 @@ class GetCharactersSortingUseCaseImplTest {
 
     @Test
     fun `should return sorting pair correctly`() = runTest {
-        // Arrange
         whenever(storageRepository.sorting)
             .thenReturn(flowOf(StorageConstants.ORDER_BY_NAME_ASCENDING))
 
-        // Act
         val result = useCase.invoke().first()
 
-        // Assert
         assertEquals("name" to "ascending", result)
     }
 
     @Test
     fun `should throw exception when repository emits error`() = runTest {
-        // Arrange
         val expectedException = RuntimeException("Database error")
         whenever(storageRepository.sorting).thenReturn(flow { throw expectedException })
 
         try {
-            // Act
             useCase.invoke().first()
             Assert.fail("Expected an exception but none was thrown")
         } catch (e: Exception) {
-            // Assert
             assertEquals("Database error", e.message)
             verify(storageRepository).sorting
         }
