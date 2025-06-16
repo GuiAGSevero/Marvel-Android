@@ -43,13 +43,10 @@ class GetFavoritesUseCaseImplTest {
 
     @Test
     fun `should return favorites list successfully`() = runTest {
-        // Arrange
         whenever(favoritesRepository.getAll()).thenReturn(flowOf(favoritesList))
 
-        // Act
         val result = useCase.invoke().first()
 
-        // Assert
         assertNotNull(result)
         assertEquals(1, result.size)
         assertEquals(character, result[0])
@@ -59,18 +56,15 @@ class GetFavoritesUseCaseImplTest {
 
     @Test
     fun `should throw exception when repository fails`() = runTest {
-        // Arrange
         whenever(favoritesRepository.getAll()).thenReturn(
             flow { throw RuntimeException("Database error") }
         )
 
         try {
-            // Act
-            val result = useCase.invoke().first()
+            useCase.invoke().first()
 
             fail("Expected an exception but none was thrown")
         } catch (e: RuntimeException) {
-            // Assert
             assertEquals("Database error", e.message)
         }
 

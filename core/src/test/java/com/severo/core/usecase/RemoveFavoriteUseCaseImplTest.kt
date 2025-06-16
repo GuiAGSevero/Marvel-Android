@@ -56,15 +56,12 @@ class RemoveFavoriteUseCaseImplTest {
 
     @Test
     fun `should emit Loading and Success when favorite is removed successfully`() = runTest {
-        // Act
         val result = useCase.invoke(params)
 
         val resultList = result.toList()
 
-        // Assert repository interaction
         verify(favoritesRepository).deleteFavorite(character)
 
-        // Assert emitted states
         assertEquals(ResultStatus.Loading, resultList[0])
         assertTrue(resultList[1] is ResultStatus.Success)
         assertEquals(Unit, (resultList[1] as ResultStatus.Success).data)
@@ -72,7 +69,6 @@ class RemoveFavoriteUseCaseImplTest {
 
     @Test
     fun `should emit Loading and Error when repository throws exception`() = runTest {
-        // Arrange
         whenever(
             favoritesRepository.deleteFavorite(character)
         ).thenAnswer { throw RuntimeException("Database error") }

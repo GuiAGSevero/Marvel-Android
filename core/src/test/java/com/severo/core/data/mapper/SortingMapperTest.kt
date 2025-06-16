@@ -15,8 +15,6 @@ class SortingMapperTest {
         mapper = SortingMapper()
     }
 
-    // ✅ Tests for mapToPair()
-
     @Test
     fun `should map ORDER_BY_NAME_ASCENDING to pair correctly`() {
         val result = mapper.mapToPair(StorageConstants.ORDER_BY_NAME_ASCENDING)
@@ -46,8 +44,6 @@ class SortingMapperTest {
         val result = mapper.mapToPair("invalid_sorting")
         assertEquals(SortingType.ORDER_BY_NAME.value to SortingType.ORDER_ASCENDING.value, result)
     }
-
-    // ✅ Tests for mapFromPair()
 
     @Test
     fun `should map pair name ascending to StorageConstants correctly`() {

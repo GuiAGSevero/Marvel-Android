@@ -51,7 +51,6 @@ class AddFavoriteUseCaseImplTest {
 
         val resultList = result.toList()
 
-        // Verifica se o método de salvar foi chamado corretamente
         verify(favoritesRepository).saveFavorite(
             Character(
                 id = 101,
@@ -67,7 +66,6 @@ class AddFavoriteUseCaseImplTest {
 
     @Test
     fun `should emit Loading and Error when repository throws exception`() = runTest {
-        // Força o repository a lançar uma exceção
         whenever(
             favoritesRepository.saveFavorite(
                 Character(

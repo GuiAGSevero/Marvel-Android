@@ -50,7 +50,6 @@ class GetCharactersUseCaseImplTest {
 
     @Test
     fun `should return paging data successfully`() = runTest {
-        // Arrange
         whenever(storageRepository.sorting).thenReturn(flowOf(sorting))
         whenever(
             charactersRepository.getCachedCharacters(
@@ -62,7 +61,6 @@ class GetCharactersUseCaseImplTest {
             flowOf(PagingData.from(listOf(character)))
         )
 
-        // Act
         val resultFlow = useCase.invoke(
             GetCharactersUseCase.GetCharactersParams(
                 query = "",
@@ -72,8 +70,7 @@ class GetCharactersUseCaseImplTest {
 
         val emitted = resultFlow.first()
 
-        // Assert
-        assertNotNull(emitted) // Verifica se o PagingData foi emitido corretamente
+        assertNotNull(emitted)
 
         verify(storageRepository).sorting
         verify(charactersRepository).getCachedCharacters("", sorting, pagingConfig)
@@ -82,13 +79,11 @@ class GetCharactersUseCaseImplTest {
 
     @Test
     fun `should throw exception when storageRepository fails`() = runTest {
-        // Arrange
         whenever(storageRepository.sorting).thenReturn(
             flow { throw RuntimeException("Storage error") }
         )
 
         try {
-            // Act
             val flowResult = useCase.invoke(
                 GetCharactersUseCase.GetCharactersParams(
                     query = "",
@@ -96,11 +91,10 @@ class GetCharactersUseCaseImplTest {
                 )
             )
 
-            flowResult.collect {} // Força o fluxo a rodar
+            flowResult.collect {}
 
             fail("Expected an exception but none was thrown")
         } catch (e: RuntimeException) {
-            // Assert
             assertEquals("Storage error", e.message)
         }
 
@@ -109,7 +103,6 @@ class GetCharactersUseCaseImplTest {
 
     @Test
     fun `should throw exception when charactersRepository fails`() = runTest {
-        // Arrange
         whenever(storageRepository.sorting).thenReturn(flowOf(sorting))
         whenever(
             charactersRepository.getCachedCharacters(
@@ -122,7 +115,6 @@ class GetCharactersUseCaseImplTest {
         )
 
         try {
-            // Act
             val flowResult = useCase.invoke(
                 GetCharactersUseCase.GetCharactersParams(
                     query = "",
@@ -130,11 +122,10 @@ class GetCharactersUseCaseImplTest {
                 )
             )
 
-            flowResult.collect {} // Força o fluxo a rodar
+            flowResult.collect {}
 
             fail("Expected an exception but none was thrown")
         } catch (e: RuntimeException) {
-            // Assert
             assertEquals("Repository error", e.message)
         }
 
